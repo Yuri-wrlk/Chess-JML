@@ -13,30 +13,51 @@ import pieces.*;
 public class Cell extends JPanel implements Cloneable{
 	
 	//Member Variables
-	private static final long serialVersionUID = 1L;
-	private boolean ispossibledestination;
-	private JLabel content;
-	private Piece piece;
-	int x,y;                             //is public because this is to be accessed by all the other class
-	private boolean isSelected=false;
-	private boolean ischeck=false;
+	private /*@ spec_public @*/ static final long serialVersionUID = 1L;
+	private /*@ spec_public @*/ boolean ispossibledestination;
+	private /*@ spec_public nullable @*/ JLabel content;
+	private /*@ spec_public nullable @*/ Piece piece;
+	/*@ spec_public @*/ int x, y;                             //is public because this is to be accessed by all the other class
+	private /*@ spec_public @*/ boolean isSelected=false;
+	private /*@ spec_public @*/ boolean ischeck=false;
 	
 	//Constructors
-	public Cell(int x,int y,Piece p)
+	public Cell(int _x,int _y)
 	{		
-		this.x=x;
-		this.y=y;
+		this.x=_x;
+		this.y=_y;
 		
 		setLayout(new BorderLayout());
 	
-	 if((x+y)%2==0)
+	 if((_x+_y)%2==0)
 	  setBackground(new Color(113,198,113));
 	
 	 else
 	  setBackground(Color.white);
 	 
-	 if(p!=null)
-		 setPiece(p);
+	}
+	
+	/*@ requires p != null;
+	@ assignable x, y, p;
+	@ ensures x == x;
+	@ ensures y == y;
+	@ ensures piece == p;
+	@*/
+	public Cell(int _x,int _y,Piece p)
+	{		
+		this.x=_x;
+		this.y=_y;
+		
+		setLayout(new BorderLayout());
+	
+	 if((_x+_y)%2==0)
+	  setBackground(new Color(113,198,113));
+	
+	 else
+	  setBackground(Color.white);
+	 
+	 
+	 setPiece(p);
 	}
 	
 	//A constructor that takes a cell as argument and returns a new cell will the same data but different reference
@@ -60,7 +81,8 @@ public class Cell extends JPanel implements Cloneable{
 	public void setPiece(Piece p)    //Function to inflate a cell with a piece
 	{
 		piece=p;
-		ImageIcon img=new javax.swing.ImageIcon(this.getClass().getResource(p.getPath()));
+		String strPath = System.getProperty("user.dir");
+		ImageIcon img=new javax.swing.ImageIcon(strPath + p.getPath());
 		content=new JLabel(img);
 		this.add(content);
 	}

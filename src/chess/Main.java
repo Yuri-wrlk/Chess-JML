@@ -16,7 +16,7 @@ import java.util.Iterator;
 import java.util.ListIterator;
 
 /**
- * @author Ashish Kedia and Adarsh Mohata
+ *@author Ashish Kedia and Adarsh Mohata
  *
  */
 
@@ -31,45 +31,45 @@ public class Main extends JFrame implements MouseListener {
 	private static final long serialVersionUID = 1L;
 
 	// Variable Declaration
-	private static final /* @ spec_public @ */int Height = 700;
-	private static final /* @ spec_public @ */int Width = 1110;
-	private static /* @ spec_public nullable @ */ Rook wr01, wr02, br01, br02;
-	private static /* @ spec_public nullable @ */ Knight wk01, wk02, bk01, bk02;
-	private static /* @ spec_public nullable @ */ Bishop wb01, wb02, bb01, bb02;
-	private static /* @ spec_public nullable @ */ Pawn wp[], bp[];
-	private static /* @ spec_public nullable @ */ Queen wq, bq;
-	private static /* @ spec_public nullable @ */ King wk, bk;
-	private /* @ spec_public nullable @ */ Cell c, previous;
-	private /* @ spec_public@ */ int chance = 0;
-	private /* @ spec_public nullable @ */ Cell boardState[][];
-	private /* @ spec_public non_null @ */ ArrayList<Cell> destinationlist = new ArrayList<Cell>();
-	private /* @ spec_public nullable @ */ Player White = null, Black = null;
-	private /* @ spec_public non_null @ */ JPanel board = new JPanel(new GridLayout(8, 8));
-	private /* @ spec_public non_null @ */ JPanel wdetails = new JPanel(new GridLayout(3, 3));
-	private /* @ spec_public non_null @ */ JPanel bdetails = new JPanel(new GridLayout(3, 3));
-	private /* @ spec_public non_null @ */ JPanel wcombopanel = new JPanel();
-	private /* @ spec_public non_null @ */ JPanel bcombopanel = new JPanel();
-	private /* @ spec_public nullable @ */ JPanel controlPanel, WhitePlayer, BlackPlayer, temp, displayTime, showPlayer,
+	private static final /*@ spec_public @*/ int Height = 700;
+	private static final /*@ spec_public @*/ int Width = 1110;
+	private static /*@ spec_public nullable @*/ Rook wr01, wr02, br01, br02;
+	private static /*@ spec_public nullable @*/ Knight wk01, wk02, bk01, bk02;
+	private static /*@ spec_public nullable @*/ Bishop wb01, wb02, bb01, bb02;
+	private static /*@ spec_public nullable @*/ Pawn wp[], bp[];
+	private static /*@ spec_public nullable @*/ Queen wq, bq;
+	private static /*@ spec_public nullable @*/ King wk, bk;
+	private /*@ spec_public nullable @*/ Cell c, previous;
+	private /*@ spec_public@*/ int chance = 0;
+	private /*@ spec_public nullable @*/ Cell boardState[][];
+	private /*@ spec_public non_null @*/ ArrayList<Cell> destinationlist = new ArrayList<Cell>();
+	private /*@ spec_public nullable @*/ Player White = null, Black = null;
+	private /*@ spec_public non_null @*/ JPanel board = new JPanel(new GridLayout(8, 8));
+	private /*@ spec_public non_null @*/ JPanel wdetails = new JPanel(new GridLayout(3, 3));
+	private /*@ spec_public non_null @*/ JPanel bdetails = new JPanel(new GridLayout(3, 3));
+	private /*@ spec_public non_null @*/ JPanel wcombopanel = new JPanel();
+	private /*@ spec_public non_null @*/ JPanel bcombopanel = new JPanel();
+	private /*@ spec_public nullable @*/ JPanel controlPanel, WhitePlayer, BlackPlayer, temp, displayTime, showPlayer,
 			time;
-	private /* @ spec_public nullable @ */ JSplitPane split;
-	private /* @ spec_public nullable @ */ JLabel label, mov;
-	private static /* @ spec_public nullable @ */ JLabel CHNC;
-	private /* @ spec_public nullable @ */ Time timer;
-	public static /* @ nullable @ */ Main Mainboard;
-	private /* @ spec_public @ */ boolean selected = false, end = false;
-	private /* @ spec_public nullable @ */ Container content;
-	private /* @ spec_public nullable @ */ ArrayList<Player> wplayer, bplayer;
-	private /* @ spec_public nullable @ */ ArrayList<String> Wnames = new ArrayList<String>();
-	private /* @ spec_public nullable @ */ ArrayList<String> Bnames = new ArrayList<String>();
-	private /* @ spec_public nullable @ */ JComboBox<String> wcombo, bcombo;
-	private /* @ spec_public nullable @ */ String wname = null, bname = null, winner = null;
-	static /* @ nullable @ */String move;
-	private /* @ spec_public nullable @ */ Player tempPlayer;
-	private /* @ spec_public nullable @ */ JScrollPane wscroll, bscroll;
-	private /* @ spec_public nullable @ */ String[] WNames = {}, BNames = {};
-	private /* @ spec_public nullable @ */ JSlider timeSlider;
-	private /* @ spec_public nullable @ */ BufferedImage image;
-	private /* @ spec_public nullable @ */ Button start, wselect, bselect, WNewPlayer, BNewPlayer;
+	private /*@ spec_public nullable @*/ JSplitPane split;
+	private /*@ spec_public nullable @*/ JLabel label, mov;
+	private static /*@ spec_public nullable @*/ JLabel CHNC;
+	private /*@ spec_public nullable @*/ Time timer;
+	public static /*@ nullable @*/ Main Mainboard;
+	private /*@ spec_public @*/ boolean selected = false, end = false;
+	private /*@ spec_public nullable @*/ Container content;
+	private /*@ spec_public nullable @*/ ArrayList<Player> wplayer, bplayer;
+	private /*@ spec_public nullable @*/ ArrayList<String> Wnames = new ArrayList<String>();
+	private /*@ spec_public nullable @*/ ArrayList<String> Bnames = new ArrayList<String>();
+	private /*@ spec_public nullable @*/ JComboBox<String> wcombo, bcombo;
+	private /*@ spec_public nullable @*/ String wname = null, bname = null, winner = null;
+	static /*@ nullable @*/String move;
+	private /*@ spec_public nullable @*/ Player tempPlayer;
+	private /*@ spec_public nullable @*/ JScrollPane wscroll, bscroll;
+	private /*@ spec_public nullable @*/ String[] WNames = {}, BNames = {};
+	private /*@ spec_public nullable @*/ JSlider timeSlider;
+	private /*@ spec_public nullable @*/ BufferedImage image;
+	private /*@ spec_public nullable @*/ Button start, wselect, bselect, WNewPlayer, BNewPlayer;
 	public static int timeRemaining = 60;
 
 	public static void main(String[] args) {
@@ -120,7 +120,8 @@ public class Main extends JFrame implements MouseListener {
 		Wnames = new ArrayList<String>();
 		Bnames = new ArrayList<String>();
 		board.setMinimumSize(new Dimension(800, 700));
-		ImageIcon img = new ImageIcon(this.getClass().getResource("icon.png"));
+		String strPath = System.getProperty("user.dir");
+		ImageIcon img = new ImageIcon(strPath + "icon.png");
 		this.setIconImage(img.getImage());
 
 		// Time Slider Details
