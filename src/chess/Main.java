@@ -298,6 +298,7 @@ public class Main extends JFrame implements MouseListener {
 	// A function to change the chance from White Player to Black Player or vice
 	// verse
 	// It is made public because it is to be accessed in the Time Class
+	
 	public void changechance() {
 		if (boardState[getKing(chance).getx()][getKing(chance).gety()].ischeck()) {
 			chance ^= 1;
