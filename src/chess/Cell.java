@@ -69,8 +69,7 @@ public class Cell extends JPanel implements Cloneable{
 	@ ensures x == cell.x;
 	@ ensures y == cell.y;
 	@*/
-	//A constructor that takes a cell as argument and returns a new cell will the same data but different reference
-	public Cell(Cell cell) throws CloneNotSupportedException
+	public Cell(/*@ non_null @*/ Cell cell) throws CloneNotSupportedException
 	{
 		this.x=cell.x;
 		this.y=cell.y;
@@ -87,14 +86,14 @@ public class Cell extends JPanel implements Cloneable{
 			piece=null;
 	}
 	
-	/*@ 
+	/*@ requires pie != null;
 	@ assignable piece;
+	@ ensures piece == pie;
 	@*/
-	public void setPiece(Piece p)    //Function to inflate a cell with a piece
+	public void setPiece(/*@ non_null @*/ Piece pie)    //Function to inflate a cell with a piece
 	{
-		piece=p;
-		String strPath = System.getProperty("user.dir");
-		ImageIcon img=new javax.swing.ImageIcon(strPath + p.getPath());
+		piece=pie;
+		ImageIcon img=new javax.swing.ImageIcon(pie.getPath());
 		content=new JLabel(img);
 		this.add(content);
 	}
