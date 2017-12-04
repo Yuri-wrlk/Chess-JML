@@ -29,7 +29,7 @@ import java.util.ListIterator;
  */
 
 public class Main extends JFrame implements MouseListener {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L; 
 
 	// Variable Declaration
 	private static final /*@ spec_public @*/ int Height = 700;
@@ -430,7 +430,7 @@ public class Main extends JFrame implements MouseListener {
 					}
 				}
 			Cell tempc = it.next();
-			if (newboardstate[tempc.x][tempc.y].getpiece() != null)
+			if (newboardstate[tempc.x][tempc.y].getpiece() != null) 
 				newboardstate[tempc.x][tempc.y].removePiece();
 			newboardstate[tempc.x][tempc.y].setPiece(newboardstate[fromcell.x][fromcell.y].getpiece());
 			x = getKing(color).getx();

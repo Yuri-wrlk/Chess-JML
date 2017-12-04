@@ -98,6 +98,9 @@ public class Cell extends JPanel implements Cloneable{
 		this.add(content);
 	}
 	
+	/*@ 
+	@ ensures piece == null;
+	@*/
 	public void removePiece()      //Function to remove a piece from the cell
 	{
 		if (piece instanceof King)
@@ -112,7 +115,10 @@ public class Cell extends JPanel implements Cloneable{
 		}
 	}
 	
-	public /*@ pure @*/ Piece getpiece()    //Function to access piece of a particular cell
+	/*@ 
+	@ ensures \result == this.piece;
+	@*/
+	public /*@ pure nullable @*/ Piece getpiece()    //Function to access piece of a particular cell
 	{
 		return this.piece;
 	}
