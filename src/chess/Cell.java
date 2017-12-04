@@ -112,8 +112,7 @@ public class Cell extends JPanel implements Cloneable{
 		}
 	}
 	
-	
-	public Piece getpiece()    //Function to access piece of a particular cell
+	public /*@ pure @*/ Piece getpiece()    //Function to access piece of a particular cell
 	{
 		return this.piece;
 	}

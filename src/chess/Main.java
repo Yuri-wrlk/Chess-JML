@@ -44,7 +44,7 @@ public class Main extends JFrame implements MouseListener {
 	private /*@ spec_public@*/ int chance = 0;
 	private /*@ spec_public nullable @*/ Cell boardState[][];
 	private /*@ spec_public non_null @*/ ArrayList<Cell> destinationlist = new ArrayList<Cell>();
-	private /*@ spec_public nullable @*/ Player White = null, Black = null;
+	private /*@ spec_public nullable @*/ Player white= null, black = null;
 	private /*@ spec_public non_null @*/ JPanel board = new JPanel(new GridLayout(8, 8));
 	private /*@ spec_public non_null @*/ JPanel wdetails = new JPanel(new GridLayout(3, 3));
 	private /*@ spec_public non_null @*/ JPanel bdetails = new JPanel(new GridLayout(3, 3));
@@ -298,7 +298,7 @@ public class Main extends JFrame implements MouseListener {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
-	// A function to change the chance from White Player to Black Player or vice
+	// A function to change the chance from whitePlayer to black Player or vice
 	// verse
 	// It is made public because it is to be accessed in the Time Class
 	
@@ -326,7 +326,7 @@ public class Main extends JFrame implements MouseListener {
 		}
 	}
 
-	// A function to retrieve the Black King or White King
+	// A function to retrieve the black King or whiteKing
 	private King getKing(int color) {
 		if (color == 0)
 			return wk;
@@ -474,13 +474,13 @@ public class Main extends JFrame implements MouseListener {
 		if (previous != null)
 			previous.removePiece();
 		if (chance == 0) {
-			White.updateGamesWon();
-			White.Update_Player();
-			winner = White.name();
+			white.updateGamesWon();
+			white.Update_Player();
+			winner = white.name();
 		} else {
-			Black.updateGamesWon();
-			Black.Update_Player();
-			winner = Black.name();
+			black.updateGamesWon();
+			black.Update_Player();
+			winner = black.name();
 		}
 		JOptionPane.showMessageDialog(board, "Checkmate!!!\n" + winner + " wins");
 		WhitePlayer.remove(wdetails);
@@ -625,14 +625,14 @@ public class Main extends JFrame implements MouseListener {
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
 
-			if (White == null || Black == null) {
+			if (white == null || black == null) {
 				JOptionPane.showMessageDialog(controlPanel, "Fill in the details");
 				return;
 			}
-			White.updateGamesPlayed();
-			White.Update_Player();
-			Black.updateGamesPlayed();
-			Black.Update_Player();
+			white.updateGamesPlayed();
+			white.Update_Player();
+			black.updateGamesPlayed();
+			black.Update_Player();
 			WNewPlayer.disable();
 			BNewPlayer.disable();
 			wselect.disable();
@@ -706,9 +706,9 @@ public class Main extends JFrame implements MouseListener {
 			if (tempPlayer == null)
 				return;
 			if (color == 0)
-				White = tempPlayer;
+				white= tempPlayer;
 			else
-				Black = tempPlayer;
+				black = tempPlayer;
 			bplayer = opl;
 			ojc.removeAllItems();
 			for (Player s : opl)
@@ -755,9 +755,9 @@ public class Main extends JFrame implements MouseListener {
 					Player tem = new Player(n);
 					tem.Update_Player();
 					if (color == 0)
-						White = tem;
+						white= tem;
 					else
-						Black = tem;
+						black = tem;
 				} else
 					return;
 			} else
