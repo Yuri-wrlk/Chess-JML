@@ -123,46 +123,78 @@ public class Cell extends JPanel implements Cloneable{
 		return this.piece;
 	}
 	
+	/*@
+	@ assignable this.isSelected;
+	@ ensures this.isSelected == true;
+	@*/
 	public void select()       //Function to mark a cell indicating it's selection
 	{
 		this.setBorder(BorderFactory.createLineBorder(Color.red,6));
 		this.isSelected=true;
 	}
 	
+	/*@
+	@ assignable \nothing;
+	@ ensures \result == this.isSelected;
+	@*/
 	public boolean isselected()   //Function to return if the cell is under selection
 	{
 		return this.isSelected;
 	}
 	
+	/*@
+	@ assignable this.isSelected;
+	@ ensures this.isSelected == false;
+	@*/
 	public void deselect()      //Function to delselect the cell
 	{
 		this.setBorder(null);
 		this.isSelected=false;
 	}
 	
+	/*@
+	@ assignable this.ispossibledestination;
+	@ ensures this.ispossibledestination == true;
+	@*/
 	public void setpossibledestination()     //Function to highlight a cell to indicate that it is a possible valid move
 	{
 		this.setBorder(BorderFactory.createLineBorder(Color.blue,4));
 		this.ispossibledestination=true;
 	}
-	
+
+	/*@
+	@ assignable this.ispossibledestination;
+	@ ensures this.ispossibledestination == false;
+	@*/	
 	public void removepossibledestination()      //Remove the cell from the list of possible moves
 	{
 		this.setBorder(null);
 		this.ispossibledestination=false;
 	}
 	
+	/*@
+	@ assignable \nothing;
+	@ ensures \result == this.ispossibledestination;
+	@*/	
 	public boolean ispossibledestination()    //Function to check if the cell is a possible destination 
 	{
 		return this.ispossibledestination;
 	}
 	
+	/*@
+	@ assignable this.ischeck;
+	@ ensures this.ischeck == false;
+	@*/
 	public void setcheck()     //Function to highlight the current cell as checked (For King)
 	{
 		this.setBackground(Color.RED);
 		this.ischeck=true;
 	}
-	
+
+	/*@
+	@ assignable this.ischeck;
+	@ ensures this.ischeck == false;
+	@*/
 	public void removecheck()   //Function to deselect check
 	{
 		this.setBorder(null);
@@ -173,6 +205,9 @@ public class Cell extends JPanel implements Cloneable{
 		this.ischeck=false;
 	}
 	
+	/*@
+	@ ensures \result == ischeck;
+	@*/	
 	public boolean ischeck()    //Function to check if the current cell is in check
 	{
 		return ischeck;
