@@ -6,11 +6,12 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import pieces.*;
+import java.io.File;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.ListIterator;
@@ -71,6 +72,7 @@ public class Main extends JFrame implements MouseListener {
 	private /*@ spec_public nullable @*/ BufferedImage image;
 	private /*@ spec_public nullable @*/ Button start, wselect, bselect, WNewPlayer, BNewPlayer;
 	public static int timeRemaining = 60;
+	private /*@ spec_public non_null @*/ String strPath = System.getProperty("user.dir");
 
 	public static void main(String[] args) {
 
@@ -120,7 +122,6 @@ public class Main extends JFrame implements MouseListener {
 		Wnames = new ArrayList<String>();
 		Bnames = new ArrayList<String>();
 		board.setMinimumSize(new Dimension(800, 700));
-		String strPath = System.getProperty("user.dir");
 		ImageIcon img = new ImageIcon(strPath + "icon.png");
 		this.setIconImage(img.getImage());
 
@@ -148,7 +149,7 @@ public class Main extends JFrame implements MouseListener {
 
 		Cell cell;
 		board.setBorder(BorderFactory.createLoweredBevelBorder());
-		pieces.Piece P;
+		Piece P;
 		content = getContentPane();
 		setSize(Width, Height);
 		setTitle("Chess");
@@ -277,8 +278,8 @@ public class Main extends JFrame implements MouseListener {
 
 			@Override
 			public void paintComponent(Graphics g) {
-				try {
-					image = ImageIO.read(this.getClass().getResource("clash.jpg"));
+				try {           
+					image = ImageIO.read(Time.class.getResource("clash.jpg"));
 				} catch (IOException ex) {
 					System.out.println("not found");
 				}

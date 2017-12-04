@@ -1,8 +1,6 @@
-package pieces;
+package chess;
 
 import java.util.ArrayList;
-
-import chess.Cell;
 
 /**
  * This is the Knight Class inherited from the Piece abstract class

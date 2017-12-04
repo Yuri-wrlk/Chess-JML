@@ -1,8 +1,6 @@
-package pieces;
+package chess;
 
 import java.util.ArrayList;
-
-import chess.Cell;
 
 /**
  * This is the Rook class inherited from abstract Piece class

@@ -3,7 +3,6 @@ package chess;
 import java.awt.*;
 import javax.swing.*;
 
-import pieces.*;
 
 /**
  * This is the Cell Class. It is the token class of our GUI.
@@ -21,7 +20,12 @@ public class Cell extends JPanel implements Cloneable{
 	private /*@ spec_public @*/ boolean isSelected=false;
 	private /*@ spec_public @*/ boolean ischeck=false;
 	
-	//Constructors
+	/*@ requires _x >= 0 && _x < 8;
+	@ requires _y >= 0 && _y < 8; 
+	@ assignable x, y;
+	@ ensures x == _x;
+	@ ensures y == _y;
+	@*/
 	public Cell(int _x,int _y)
 	{		
 		this.x=_x;
@@ -37,13 +41,14 @@ public class Cell extends JPanel implements Cloneable{
 	 
 	}
 	
-	/*@ requires p != null;
-	@ assignable x, y, p;
-	@ ensures x == x;
-	@ ensures y == y;
-	@ ensures piece == p;
+	/*@ requires _x > -1 && _x < 8;
+	@ requires _y > -1 && _y < 8; 
+	@ assignable x, y;
+	@ ensures x == _x;
+	@ ensures y == _y;
+	@ ensures piece == \old (pie);
 	@*/
-	public Cell(int _x,int _y,Piece p)
+	public Cell(int _x,int _y,/*@ nullable @*/ Piece pie)
 	{		
 		this.x=_x;
 		this.y=_y;
@@ -56,10 +61,14 @@ public class Cell extends JPanel implements Cloneable{
 	 else
 	  setBackground(Color.white);
 	 
-	 
-	 setPiece(p);
+	 if (pie != null)
+		 setPiece(pie);
 	}
 	
+	/*@ requires cell != null;
+	@ ensures x == cell.x;
+	@ ensures y == cell.y;
+	@*/
 	//A constructor that takes a cell as argument and returns a new cell will the same data but different reference
 	public Cell(Cell cell) throws CloneNotSupportedException
 	{
@@ -78,6 +87,9 @@ public class Cell extends JPanel implements Cloneable{
 			piece=null;
 	}
 	
+	/*@ 
+	@ assignable piece;
+	@*/
 	public void setPiece(Piece p)    //Function to inflate a cell with a piece
 	{
 		piece=p;

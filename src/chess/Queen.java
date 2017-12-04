@@ -1,8 +1,6 @@
-package pieces;
+package chess;
 
 import java.util.ArrayList;
-
-import chess.Cell;
 
 /**
  * This is the Queen Class inherited from the abstract Piece class

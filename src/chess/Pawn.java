@@ -1,8 +1,6 @@
-package pieces;
+package chess;
 
 import java.util.ArrayList;
-
-import chess.Cell;
 
 /**
  * This is the Pawn Class inherited from the piece
