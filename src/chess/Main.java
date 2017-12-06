@@ -32,7 +32,9 @@ public class Main extends JFrame implements MouseListener {
 
 	// Variable Declaration
 	private static final /*@ spec_public @*/ int Height = 700;
+	//@ public constraint Height == \old(Height);
 	private static final /*@ spec_public @*/ int Width = 1110;
+	//@ public constraint Width == \old(Width);
 	private static /*@ spec_public nullable @*/ Rook wr01, wr02, br01, br02;
 	private static /*@ spec_public nullable @*/ Knight wk01, wk02, bk01, bk02;
 	private static /*@ spec_public nullable @*/ Bishop wb01, wb02, bb01, bb02;
@@ -63,7 +65,7 @@ public class Main extends JFrame implements MouseListener {
 	private /*@ spec_public nullable @*/ ArrayList<String> bnames = new ArrayList<String>();
 	private /*@ spec_public nullable @*/ JComboBox<String> wcombo, bcombo;
 	private /*@ spec_public nullable @*/ String wname = null, bname = null, winner = null;
-	static /*@ nullable @*/String move;
+	static /*@ spec_public nullable @*/String move;
 	private /*@ spec_public nullable @*/ Player tempPlayer;
 	private /*@ spec_public nullable @*/ JScrollPane wscroll, bscroll;
 	private /*@ spec_public nullable @*/ String[] WNames = {}, BNames = {};
@@ -72,7 +74,9 @@ public class Main extends JFrame implements MouseListener {
 	private /*@ spec_public nullable @*/ Button start, wselect, bselect, WNewPlayer, BNewPlayer;
 	public static int timeRemaining = 60;
 	private static final /*@ spec_public non_null @*/ String strPath = System.getProperty("user.dir") + "/src/chess/";
+	//@ public constraint strPath == \old(strPath);
 
+	 
 	
 	public static void main(String[] args) {
 
@@ -344,8 +348,23 @@ public class Main extends JFrame implements MouseListener {
 	// A function to change the chance from whitePlayer to black Player or vice
 	// verse
 	// It is made public because it is to be accessed in the Time Class
+	/*@ 
+	@ 
+	@ public normal_behavior
+	@ 		requires isInCheck() == true;
+	@ 		assignable chance, previous, timer;
+	@ 		ensures (\old (chance) == 1 && chance == 0) || 
+	@				(\old (chance) == 0 && chance == 1);
+	@ also
+	@  	public normal_behavior
+	@ 		requires isInCheck() == false;
+	@		assignable chance, previous, timer; 
+	@ 		ensures (\old (chance) == 0 && chance == 1) || 
+	@ 		(\old (chance) == 1 && chance == 0);
+	@*/
 	public void changechance() {
-		if (boardState[getKing(chance).getx()][getKing(chance).gety()].ischeck()) {
+		boolean valor_atual = isInCheck();
+		if (isInCheck()) {
 			chance ^= 1;
 			gameend();
 		}
@@ -367,13 +386,18 @@ public class Main extends JFrame implements MouseListener {
 			showPlayer.add(CHNC);
 		}
 	}
+	
+	private /*@ spec_public pure @*/ boolean isInCheck() {
+		return boardState[getKing(chance).getx()][getKing(chance).gety()].ischeck();
+	}
 
 	// A function to retrieve the black King or whiteKing
-	/*@ requires color == 1 || color == 0;
+	/*@ 
+	@ requires color == 1 || color == 0;
 	@ ensures ((\result == wk && color == 0) 
 			|| (\result == bk && color == 1));
 	@*/
-	private /*@ pure @*/ King getKing(int color) {
+	private /*@ spec_public pure @*/ King getKing(int color) {
 		if (color == 0)
 			return wk;
 		else
@@ -381,6 +405,15 @@ public class Main extends JFrame implements MouseListener {
 	}
 
 	// A function to clean the highlights of possible destination cells
+	/*@ 
+	@ requires destlist != null;
+	@ ensures (\forall int i;
+	@	i >= 0 && i < destlist.size();
+	@	 destlist.get(i) instanceof Cell);
+	@ ensures (\forall int i;
+	@	i >= 0 && i < destlist.size();
+	@	( (Cell) destlist.get(i)).ispossibledestination() == false);
+	@*/
 	private void cleandestinations(ArrayList<Cell> destlist) // Function to clear the last move's destinations
 	{
 		ListIterator<Cell> it = destlist.listIterator();
@@ -389,6 +422,16 @@ public class Main extends JFrame implements MouseListener {
 	}
 
 	// A function that indicates the possible moves by highlighting the Cells
+	// A function to clean the highlights of possible destination cells
+	/*@ 
+	@ requires destlist != null;
+	@ ensures (\forall int i;
+	@	i >= 0 && i < destlist.size();
+	@	 destlist.get(i) instanceof Cell);
+	@ ensures (\forall int i;
+	@	i >= 0 && i < destlist.size();
+	@	( (Cell) destlist.get(i)).ispossibledestination() == true);
+	@*/
 	private void highlightdestinations(ArrayList<Cell> destlist) {
 		ListIterator<Cell> it = destlist.listIterator();
 		while (it.hasNext())
@@ -396,7 +439,12 @@ public class Main extends JFrame implements MouseListener {
 	}
 
 	// Function to check if the king will be in danger if the given move is made
-	private boolean willkingbeindanger(Cell fromcell, Cell tocell) {
+	/*@ 
+	@ requires fromcell.getpiece() != null;
+	@ requires fromcell != tocell;
+	@ ensures  getKing(chance).isindanger(boardState) == false;
+	@*/
+	private /*@ pure @*/ boolean willkingbeindanger(Cell fromcell, Cell tocell) {
 		Cell newboardstate[][] = new Cell[8][8];
 		for (int i = 0; i < 8; i++)
 			for (int j = 0; j < 8; j++) {
@@ -425,6 +473,13 @@ public class Main extends JFrame implements MouseListener {
 	}
 
 	// A function to eliminate the possible moves that will put the King in danger
+	/*@ 
+	@ requires fromcell.getpiece() != null;
+	@ requires destlist != null;
+	@ ensures  (\forall int i;
+		i >= 0 && i < \result.size();
+		destlist.contains(\result.get(i)) == true);
+	@*/
 	private ArrayList<Cell> filterdestination(ArrayList<Cell> destlist, Cell fromcell) {
 		ArrayList<Cell> newlist = new ArrayList<Cell>();
 		Cell newboardstate[][] = new Cell[8][8];
@@ -461,6 +516,14 @@ public class Main extends JFrame implements MouseListener {
 
 	// A Function to filter the possible moves when the king of the current player
 	// is under Check
+	/*@ 
+	@ requires fromcell.getpiece() != null;
+	@ requires destlist != null;
+	@ ensures  (\forall int i;
+		i >= 0 && i < \result.size();
+		destlist.contains(\result.get(i)) == true);
+	@ ensures  getKing(chance).isindanger(boardState) == false;
+	@*/
 	private ArrayList<Cell> incheckfilter(ArrayList<Cell> destlist, Cell fromcell, int color) {
 		ArrayList<Cell> newlist = new ArrayList<Cell>();
 		Cell newboardstate[][] = new Cell[8][8];
@@ -496,7 +559,11 @@ public class Main extends JFrame implements MouseListener {
 
 	// A function to check if the King is check-mate. The Game Ends if this function
 	// returns true.
-	public boolean checkmate(int color) {
+	/*@ 
+	@ requires color == 0 || color == 1;
+	@ requires getKing(color).isindanger(boardState) == true;
+	@*/
+	public /*@ pure @*/ boolean checkmate(int color) {
 		ArrayList<Cell> dlist = new ArrayList<Cell>();
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
@@ -512,8 +579,21 @@ public class Main extends JFrame implements MouseListener {
 		return true;
 	}
 
+	
+	/*@ 
+	@ 
+	@ public normal_behavior
+	@ 		requires chance == 0;
+	@ 		assignable winner, end, Mainboard;
+	@ 		ensures white.gameswon() == \old (white.gameswon().intValue()) + 1;
+	@ also
+	@  	public normal_behavior
+	@ 		requires chance == 1;
+	@ 		assignable winner, end, Mainboard;
+	@ 		ensures black.gameswon() == \old (black.gameswon().intValue()) + 1;
+	@*/
 	@SuppressWarnings("deprecation")
-	private void gameend() {
+	private /*@ spec_public @*/ void gameend() {
 		cleandestinations(destinationlist);
 		displayTime.disable();
 		timer.countdownTimer.stop();
