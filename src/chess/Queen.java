@@ -9,6 +9,14 @@ import java.util.ArrayList;
 public class Queen extends Piece{
 	
 	//Constructors
+	/*@ assignable color, id, path;
+	@ requires i != null;
+	@ requires p != null;
+	@ requires c == 0 || c == 1;
+	@ ensures this.getId() == i;
+	@ ensures this.getPath() == p;
+	@ ensures this.getcolor() == c; 
+	@*/
 	public Queen(String i,String p,int c)
 	{
 		setId(i);
@@ -16,7 +24,19 @@ public class Queen extends Piece{
 		setColor(c);
 	}
 	
-	//Move Function Defined
+	/*@ requires x >= 0 && x < 8;
+	@ requires y >= 0 && y < 8;
+	@ ensures (\forall int i;
+		i >= 0 && i < \result.size();
+		( ( (Cell) \result.get(i)).x > x && ( (Cell) \result.get(i)).y == y)
+		|| (( (Cell) \result.get(i)).x == x && ( (Cell) \result.get(i)).y < y)
+		|| (( (Cell) \result.get(i)).x < x && ( (Cell) \result.get(i)).y == y)
+		|| (( (Cell) \result.get(i)).x == x && ( (Cell) \result.get(i)).y > y)
+		|| (( (Cell) \result.get(i)).x > x && ( (Cell) \result.get(i)).y > y)
+		|| (( (Cell) \result.get(i)).x > x && ( (Cell) \result.get(i)).y < y)
+		|| (( (Cell) \result.get(i)).x < x && ( (Cell) \result.get(i)).y < y)
+		|| (( (Cell) \result.get(i)).x < x && ( (Cell) \result.get(i)).y > y)); 
+	@*/
 	public ArrayList<Cell> move(Cell state[][],int x,int y)
 	{
 		//Queen has most number of possible moves

@@ -10,6 +10,14 @@ import java.util.ArrayList;
 public class Knight extends Piece{
 	
 	//Constructor
+	/*@ assignable color, id, path;
+	@ requires i != null;
+	@ requires p != null;
+	@ requires c == 0 || c == 1;
+	@ ensures this.getId() == i;
+	@ ensures this.getPath() == p;
+	@ ensures this.getcolor() == c; 
+	@*/
 	public Knight(String i,String p,int c)
 	{
 		setId(i);
@@ -20,6 +28,19 @@ public class Knight extends Piece{
 	//Move Function overridden
 	//There are at max 8 possible moves for a knight at any point of time.
 	//Knight moves only 2(1/2) steps
+	/*@ requires x >= 0 && x < 8;
+	@ requires y >= 0 && y < 8;
+	@ ensures (\forall int i;
+		i >= 0 && i < \result.size();
+		( ( (Cell) \result.get(i)).x == x + 2 && ( (Cell) \result.get(i)).y == y + 1)
+		|| (( (Cell) \result.get(i)).x == x + 2 x && ( (Cell) \result.get(i)).y == y - 1)
+		|| (( (Cell) \result.get(i)).x == x + 1 x && ( (Cell) \result.get(i)).y == y + 2)
+		|| (( (Cell) \result.get(i)).x == x - 1 x && ( (Cell) \result.get(i)).y == y + 2)
+		|| (( (Cell) \result.get(i)).x == x + 1 x && ( (Cell) \result.get(i)).y == y - 2)
+		|| (( (Cell) \result.get(i)).x == x - 1 x && ( (Cell) \result.get(i)).y == y - 2)
+		|| (( (Cell) \result.get(i)).x == x - 2 x && ( (Cell) \result.get(i)).y == y + 1)
+		|| (( (Cell) \result.get(i)).x == x - 2 x && ( (Cell) \result.get(i)).y == y - 1)); 
+	@*/
 	public ArrayList<Cell> move(Cell state[][],int x,int y)
 	{
 		possiblemoves.clear();

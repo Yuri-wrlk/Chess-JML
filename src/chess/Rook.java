@@ -9,6 +9,14 @@ import java.util.ArrayList;
 public class Rook extends Piece{
 	
 	//Constructor
+	/*@ assignable color, id, path;
+	@ requires i != null;
+	@ requires p != null;
+	@ requires c == 0 || c == 1;
+	@ ensures this.getId() == i;
+	@ ensures this.getPath() == p;
+	@ ensures this.getcolor() == c; 
+	@*/
 	public Rook(String i,String p,int c)
 	{
 		setId(i);
@@ -17,6 +25,15 @@ public class Rook extends Piece{
 	}
 	
 	//Move function defined
+	/*@ requires x >= 0 && x < 8;
+	@ requires y >= 0 && y < 8;
+	@ ensures (\forall int i;
+		i >= 0 && i < \result.size();
+		( ( (Cell) \result.get(i)).x > x && ( (Cell) \result.get(i)).y == y)
+		|| (( (Cell) \result.get(i)).x == x && ( (Cell) \result.get(i)).y < y)
+		|| (( (Cell) \result.get(i)).x < x && ( (Cell) \result.get(i)).y == y)
+		|| (( (Cell) \result.get(i)).x == x && ( (Cell) \result.get(i)).y > y)); 
+	@*/
 	public ArrayList<Cell> move(Cell state[][],int x,int y)
 	{
 		//Rook can move only horizontally or vertically
