@@ -22,6 +22,7 @@ public abstract class Piece implements Cloneable{
 	/*@ 
 	@ requires id != null;
  	@ assignable this.id;
+ 	@ ensures this.id == id;
  	@*/
 	public void setId(String id)
 	{
@@ -32,6 +33,7 @@ public abstract class Piece implements Cloneable{
 	/*@ 
 	@ requires path != null;
  	@ assignable this.path;
+ 	@ ensures this.path == path;
  	@*/	
 	public void setPath(String path)
 	{
@@ -42,6 +44,7 @@ public abstract class Piece implements Cloneable{
 	/*@ 
 	@ requires c == 0 || c == 1;
  	@ assignable this.color;
+ 	@ ensures this.color == c;
  	@*/
 	public void setColor(int c)
 	{
