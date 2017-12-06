@@ -16,9 +16,13 @@ public class Cell extends JPanel implements Cloneable{
 	private /*@ spec_public @*/ boolean ispossibledestination;
 	private /*@ spec_public nullable @*/ JLabel content;
 	private /*@ spec_public nullable @*/ Piece piece;
-	/*@ spec_public @*/ int x, y;                             //is public because this is to be accessed by all the other class
+	/*@ spec_public @*/ int x = 0, y = 0;                             //is public because this is to be accessed by all the other class
 	private /*@ spec_public @*/ boolean isSelected=false;
 	private /*@ spec_public @*/ boolean ischeck=false;
+	
+	//@ public invariant x >= 0 && x < 8;
+	//@ public invariant y >= 0 && y < 8;
+	
 	
 	/*@ requires _x >= 0 && _x < 8;
 	@ requires _y >= 0 && _y < 8; 
@@ -50,24 +54,15 @@ public class Cell extends JPanel implements Cloneable{
 	@*/
 	public Cell(int _x,int _y,/*@ nullable @*/ Piece pie)
 	{		
-		this.x=_x;
-		this.y=_y;
-		
-		setLayout(new BorderLayout());
-	
-	 if((_x+_y)%2==0)
-	  setBackground(new Color(113,198,113));
-	
-	 else
-	  setBackground(Color.white);
-	 
-	 if (pie != null)
+		this(_x, _y);
+		if (pie != null)
 		 setPiece(pie);
 	}
 	
 	/*@ requires cell != null;
 	@ ensures x == cell.x;
 	@ ensures y == cell.y;
+	@ signals_only CloneNotSupportedException; 
 	@*/
 	public Cell(/*@ non_null @*/ Cell cell) throws CloneNotSupportedException
 	{
@@ -137,7 +132,7 @@ public class Cell extends JPanel implements Cloneable{
 	@ assignable \nothing;
 	@ ensures \result == this.isSelected;
 	@*/
-	public boolean isselected()   //Function to return if the cell is under selection
+	public /*@ pure @*/ boolean isselected()   //Function to return if the cell is under selection
 	{
 		return this.isSelected;
 	}
@@ -173,17 +168,16 @@ public class Cell extends JPanel implements Cloneable{
 	}
 	
 	/*@
-	@ assignable \nothing;
 	@ ensures \result == this.ispossibledestination;
 	@*/	
-	public boolean ispossibledestination()    //Function to check if the cell is a possible destination 
+	public /*@ pure @*/ boolean ispossibledestination()    //Function to check if the cell is a possible destination 
 	{
 		return this.ispossibledestination;
 	}
 	
 	/*@
 	@ assignable this.ischeck;
-	@ ensures this.ischeck == false;
+	@ ensures this.ischeck == true;
 	@*/
 	public void setcheck()     //Function to highlight the current cell as checked (For King)
 	{
@@ -208,7 +202,7 @@ public class Cell extends JPanel implements Cloneable{
 	/*@
 	@ ensures \result == ischeck;
 	@*/	
-	public boolean ischeck()    //Function to check if the current cell is in check
+	public /*@ pure @*/ boolean ischeck()    //Function to check if the current cell is in check
 	{
 		return ischeck;
 	}

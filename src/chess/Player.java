@@ -37,19 +37,19 @@ public class Player implements Serializable{
 	}
 	
 	//Name Getter
-	public String name()
+	public /*@ pure @*/ String name()
 	{
 		return name;
 	}
 	
 	//Returns the number of games played
-	public Integer gamesplayed()
+	public /*@ pure @*/ Integer gamesplayed()
 	{
 		return gamesplayed;
 	}
 	
 	//Returns the number of games won
-	public Integer gameswon()
+	public /*@ pure @*/ Integer gameswon()
 	{
 		return gameswon;
 	}
