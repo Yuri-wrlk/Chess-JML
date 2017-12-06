@@ -7,8 +7,7 @@ public class King extends Piece{
 	private int x,y; //Extra variables for King class to keep a track of king's position
 	
 	//King Constructor
-	/*@ assignable color, id, path;
-	@ requires i != null;
+	/*@ requires i != null;
 	@ requires p != null;
 	@ requires c == 0 || c == 1;
 	@ ensures this.getId() == i;

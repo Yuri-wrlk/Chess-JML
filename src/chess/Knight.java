@@ -10,8 +10,7 @@ import java.util.ArrayList;
 public class Knight extends Piece{
 	
 	//Constructor
-	/*@ assignable color, id, path;
-	@ requires i != null;
+	/*@ requires i != null;
 	@ requires p != null;
 	@ requires c == 0 || c == 1;
 	@ ensures this.getId() == i;
@@ -33,13 +32,13 @@ public class Knight extends Piece{
 	@ ensures (\forall int i;
 		i >= 0 && i < \result.size();
 		( ( (Cell) \result.get(i)).x == x + 2 && ( (Cell) \result.get(i)).y == y + 1)
-		|| (( (Cell) \result.get(i)).x == x + 2 x && ( (Cell) \result.get(i)).y == y - 1)
-		|| (( (Cell) \result.get(i)).x == x + 1 x && ( (Cell) \result.get(i)).y == y + 2)
-		|| (( (Cell) \result.get(i)).x == x - 1 x && ( (Cell) \result.get(i)).y == y + 2)
-		|| (( (Cell) \result.get(i)).x == x + 1 x && ( (Cell) \result.get(i)).y == y - 2)
-		|| (( (Cell) \result.get(i)).x == x - 1 x && ( (Cell) \result.get(i)).y == y - 2)
-		|| (( (Cell) \result.get(i)).x == x - 2 x && ( (Cell) \result.get(i)).y == y + 1)
-		|| (( (Cell) \result.get(i)).x == x - 2 x && ( (Cell) \result.get(i)).y == y - 1)); 
+		|| (( (Cell) \result.get(i)).x == x + 2  && ( (Cell) \result.get(i)).y == y - 1)
+		|| (( (Cell) \result.get(i)).x == x + 1  && ( (Cell) \result.get(i)).y == y + 2)
+		|| (( (Cell) \result.get(i)).x == x - 1  && ( (Cell) \result.get(i)).y == y + 2)
+		|| (( (Cell) \result.get(i)).x == x + 1  && ( (Cell) \result.get(i)).y == y - 2)
+		|| (( (Cell) \result.get(i)).x == x - 1  && ( (Cell) \result.get(i)).y == y - 2)
+		|| (( (Cell) \result.get(i)).x == x - 2  && ( (Cell) \result.get(i)).y == y + 1)
+		|| (( (Cell) \result.get(i)).x == x - 2  && ( (Cell) \result.get(i)).y == y - 1)); 
 	@*/
 	public ArrayList<Cell> move(Cell state[][],int x,int y)
 	{

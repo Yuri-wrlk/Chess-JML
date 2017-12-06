@@ -9,8 +9,7 @@ import java.util.ArrayList;
 public class Pawn extends Piece{
 	
 	//COnstructors
-	/*@ assignable color, id, path;
-	@ requires i != null;
+	/*@ requires i != null;
 	@ requires p != null;
 	@ requires c == 0 || c == 1;
 	@ ensures this.getId() == i;
