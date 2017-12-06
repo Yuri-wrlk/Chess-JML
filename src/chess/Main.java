@@ -28,7 +28,8 @@ import java.util.ListIterator;
  */
 
 public class Main extends JFrame implements MouseListener {
-	private static final long serialVersionUID = 1L; 
+	private static final /*@ spec_public @*/ long serialVersionUID = 1L;
+	//@ public constraint serialVersionUID == \old(serialVersionUID);
 
 	// Variable Declaration
 	private static final /*@ spec_public @*/ int Height = 700;

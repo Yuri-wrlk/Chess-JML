@@ -10,14 +10,16 @@ import java.util.ArrayList;
  *
  */
 public class Bishop extends Piece{
+	/*@ public initially this.getId() != null;
+	@ public initially this.getPath() != null;
+	@ public initially this.getcolor() == 0 || this.getcolor() == 1; 
+	@*/
 	
 	//Constructor
-	/*@ requires i != null;
+	/*@
+	@ requires i != null;
 	@ requires p != null;
 	@ requires c == 0 || c == 1;
-	@ ensures this.getId() == i;
-	@ ensures this.getPath() == p;
-	@ ensures this.getcolor() == c; 
 	@*/
 	public Bishop(String i,String p,int c)
 	{

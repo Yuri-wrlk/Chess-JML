@@ -19,10 +19,11 @@ public abstract class Piece implements Cloneable{
 	public abstract ArrayList<Cell> move(Cell pos[][],int x,int y);  //Abstract Function. Must be overridden
 	
 	//Id Setter
+	/*@ public initially this.id != null; @*/
+	
 	/*@ 
 	@ requires id != null;
  	@ assignable this.id;
- 	@ ensures this.id == id;
  	@*/
 	public void setId(String id)
 	{

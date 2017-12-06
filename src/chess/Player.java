@@ -22,12 +22,18 @@ import javax.swing.JOptionPane;
  */
 public class Player implements Serializable{
 	
-	private static final long serialVersionUID = 1L;
-	private String name;
-	private Integer gamesplayed;
-	private Integer gameswon;
+	private static final /*@ spec_public @*/ long serialVersionUID = 1L;
+	//@ public constraint serialVersionUID == \old(serialVersionUID);
+	private /*@ spec_public nullable @*/ String name;
+	private /*@ spec_public nullable @*/ Integer gamesplayed;
+	private /*@ spec_public nullable @*/ Integer gameswon;
 	
 	//Constructor
+	/*@ public initially this.name == name.trim();
+	@ public initially gamesplayed.intValue() == 0;
+	@ public initially gameswon.intValue() == 0; @*/
+	
+	/*@ requires name != null; @*/
 	public Player(String name)
 	{
 		this.name = name.trim();

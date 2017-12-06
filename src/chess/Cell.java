@@ -13,6 +13,7 @@ public class Cell extends JPanel implements Cloneable{
 	
 	//Member Variables
 	private /*@ spec_public @*/ static final long serialVersionUID = 1L;
+	//@ public constraint serialVersionUID == \old(serialVersionUID);
 	private /*@ spec_public @*/ boolean ispossibledestination;
 	private /*@ spec_public nullable @*/ JLabel content;
 	private /*@ spec_public nullable @*/ Piece piece;
@@ -23,12 +24,14 @@ public class Cell extends JPanel implements Cloneable{
 	//@ public invariant x >= 0 && x < 8;
 	//@ public invariant y >= 0 && y < 8;
 	
+	/*@
+	@ public initially x == 0;
+	@ public initially y == 0;
+	@*/
 	
 	/*@ requires _x >= 0 && _x < 8;
 	@ requires _y >= 0 && _y < 8; 
 	@ assignable x, y;
-	@ ensures x == _x;
-	@ ensures y == _y;
 	@*/
 	public Cell(int _x,int _y)
 	{		
@@ -45,12 +48,10 @@ public class Cell extends JPanel implements Cloneable{
 	 
 	}
 	
-	/*@ requires _x > -1 && _x < 8;
+	/*
+	@ requires _x > -1 && _x < 8;
 	@ requires _y > -1 && _y < 8; 
 	@ assignable x, y;
-	@ ensures x == _x;
-	@ ensures y == _y;
-	@ ensures piece == \old (pie);
 	@*/
 	public Cell(int _x,int _y,/*@ nullable @*/ Piece pie)
 	{		
@@ -60,8 +61,6 @@ public class Cell extends JPanel implements Cloneable{
 	}
 	
 	/*@ requires cell != null;
-	@ ensures x == cell.x;
-	@ ensures y == cell.y;
 	@ signals_only CloneNotSupportedException; 
 	@*/
 	public Cell(/*@ non_null @*/ Cell cell) throws CloneNotSupportedException

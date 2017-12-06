@@ -9,12 +9,15 @@ import java.util.ArrayList;
 public class Pawn extends Piece{
 	
 	//COnstructors
-	/*@ requires i != null;
+	/*@ public initially this.getId() != null;
+	@ public initially this.getPath() != null;
+	@ public initially this.getcolor() == 0 || this.getcolor() == 1; 
+	@*/
+	
+	/*@
+	@ requires i != null;
 	@ requires p != null;
 	@ requires c == 0 || c == 1;
-	@ ensures this.getId() == i;
-	@ ensures this.getPath() == p;
-	@ ensures this.getcolor() == c; 
 	@*/
 	public Pawn(String i,String p,int c)
 	{
